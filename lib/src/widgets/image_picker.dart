@@ -18,16 +18,18 @@ class ImageSelector {
   ///[pickFiles] to pick the files
   Future<void> pickFiles() async {
     try {
-      FilePickerResult? result = await FilePicker.platform
-          .pickFiles(allowMultiple: false, type: _pickingType, withData: true);
+      PlatformFile? file = await FilePicker.pickFile(
+        type: _pickingType,
+      );
 
-      if (result != null) {
-        PlatformFile file = result.files.first;
-        Uint8List? bytes = file.bytes;
-        if (bytes != null) {
-          String base64String = base64Encode(bytes);
-          onImagePicked('data:image/${file.extension};base64,$base64String');
-        }
+      if (file != null) {
+        Uint8List bytes = await file.readAsBytes();
+
+        String base64String = base64Encode(bytes);
+
+        onImagePicked(
+          'data:image/${file.extension};base64,$base64String',
+        );
       }
     } on PlatformException catch (e) {
       debugPrint('Unsupported operation $e');

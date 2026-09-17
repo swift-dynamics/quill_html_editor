@@ -554,7 +554,7 @@ class _WebViewXState extends State<WebViewX> {
       _debugLog('Using proxy: ${proxy.runtimeType}');
 
       try {
-        return proxy.fetchPageSource(
+        return await proxy.fetchPageSource(
           method: method,
           url: url,
           headers: headers,
