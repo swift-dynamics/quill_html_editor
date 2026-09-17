@@ -187,12 +187,15 @@ class _WebViewXState extends State<WebViewX> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.width,
-      height: widget.height,
-      child: IgnorePointer(
-        ignoring: _ignoreAllGestures,
-        child: webViewWidget,
+    return ColoredBox(
+      color: widget.mobileSpecificParams.backgroundColor ?? Colors.transparent,
+      child: SizedBox(
+        width: widget.width,
+        height: widget.height,
+        child: IgnorePointer(
+          ignoring: _ignoreAllGestures,
+          child: webViewWidget,
+        ),
       ),
     );
   }
@@ -290,6 +293,11 @@ class _WebViewXState extends State<WebViewX> {
         ? wf.JavaScriptMode.unrestricted
         : wf.JavaScriptMode.disabled;
     originalWebViewController.setJavaScriptMode(javaScriptMode);
+    if (widget.mobileSpecificParams.backgroundColor != null) {
+      unawaited(originalWebViewController.setBackgroundColor(
+        widget.mobileSpecificParams.backgroundColor!,
+      ));
+    }
     originalWebViewController.setUserAgent(widget.userAgent);
     originalWebViewController.setNavigationDelegate(
       wf.NavigationDelegate(

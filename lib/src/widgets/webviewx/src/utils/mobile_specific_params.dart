@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 
 /// Parameters specific to the mobile version.
 ///
@@ -43,11 +44,15 @@ class MobileSpecificParams {
   /// Enable WebView hybrid composition
   final bool androidEnableHybridComposition;
 
+  /// Color shown by the native WebView while its page is being painted.
+  final Color? backgroundColor;
+
   /// Constructor
   const MobileSpecificParams({
     this.mobileGestureRecognizers,
     this.gestureNavigationEnabled = false,
     this.debuggingEnabled = false,
     this.androidEnableHybridComposition = false,
+    this.backgroundColor,
   });
 }
